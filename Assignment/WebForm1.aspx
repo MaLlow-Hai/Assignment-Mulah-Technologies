@@ -109,45 +109,7 @@
     </div>
 
     <script>
-        function loadUploadedCSV() {
-            const fileInput = document.getElementById('csvFileInput');
-            const file = fileInput.files[0];
-
-            if (!file) {
-                alert('Please select a CSV file first');
-                return;
-            }
-
-            if (!file.name.endsWith('.csv')) {
-                alert('Please select a CSV file');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                const csvContent = e.target.result;
-                console.log('Loaded CSV from uploaded file:', csvContent);
-
-                document.getElementById('table1-body').innerHTML = '';
-                document.getElementById('table2-body').innerHTML = '';
-
-                const data = parseCSV(csvContent);
-                const lookup = createLookup(data);
-
-                populateTable1(data);
-                populateTable2(lookup);
-
-                console.log('Table 2 Calculations from uploaded file:');
-                console.log('Alpha (A5 + A20):', lookup['A5'], '+', lookup['A20'], '=', lookup['A5'] + lookup['A20']);
-                console.log('Beta (A15 / A7):', lookup['A15'], '/', lookup['A7'], '=', lookup['A15'] / lookup['A7']);
-                console.log('Charlie (A13 * A12):', lookup['A13'], '*', lookup['A12'], '=', lookup['A13'] * lookup['A12']);
-
-                alert('CSV data loaded successfully!');
-            };
-
-            reader.readAsText(file);
-        }
-
+        
         async function loadCSVData() {
             try {
                 const response = await fetch('Table_Input.csv');
